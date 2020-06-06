@@ -1,0 +1,247 @@
+%\documentclass[a4paper]{article}
+%\usepackage{beamerarticle}
+
+\documentclass[10pt, ignoreonframetext,unicode]{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english,russian]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx,pgf}
+\usepackage{multimedia}
+%\usepackage{hyperref}
+
+\graphicspath{{./pictures_kurs/}}
+
+%\usetheme{Rochester}  %тема без навигации
+%\usetheme{Montpellier} %тема с навигацией в виде дерева
+%\usetheme{Berkeley} %тема с оглавлением на полях
+%\usetheme{Berlin} %тема с навигацией в виде мини-слайдов
+
+\usetheme{Madrid} %тема с таблицей разделов и подразделов
+
+
+\useinnertheme{circles}   %внутренняя тема
+%\useoutertheme{smoothbars}   %внешняя тема
+\usecolortheme{default}     %цветовая схема
+%\usecolortheme{beaver}
+%\usefonttheme{serif}    %шрифты
+
+\setbeameroption{hide notes}
+
+\setbeamertemplate{bibliography item}{\insertbiblabel}
+
+\title[Задача Штурма "--- Лиувилля]{Задача Штурма --- Лиувилля на собственные значения для уравнения прогиба балки \\ с закрепленными концами}
+\author{C.\,Э.~Марцинович}
+\institute[МГТУ]{МГТУ им. Н.\,Э.~Баумана}
+\date{\today}
+\titlegraphic{\includegraphics[width=2cm]{logo.png}}
+
+
+\begin{document}
+
+\begin{frame}[plain]
+\maketitle
+\end{frame}
+
+
+\begin{frame}{Содержание}
+\tableofcontents%[pausesections,pausesubsections]
+\end{frame}
+
+
+\section{Введение и постановка задачи}
+\begin{frame}{Введение и постановка задачи}
+	Задача Штурма "--- Лиувилля 4-го порядка поставлена таким образом:
+	\begin{gather*}
+	X^{(4)} - aX^{''} = \lambda X, \quad 0<X<\pi,\quad a>0;\label{I} \\ 
+	X(0) = X^{'}(0) = 0;\label{II} \\
+	X(\pi) = X^{'}(\pi) = 0. \label{III}
+	\end{gather*}
+	Такая задача возникает при исследовании уравнения Эйлера "--- Бернулли в частных производных \cite{Rudakov2019_Euler}, \cite{Rudakov2020_1}, \cite{Rudakov2020_2}.
+	
+	В данной работе требуется: 
+	\begin{enumerate}
+		\item Составить уравнение для собственных значений $\lambda$, исследовать его, найти асимп\-тотику $\{\lambda_n\}$. 
+		\item Локализовать собственные значения $\{\lambda_n\}$. 
+		\item Исследовать свойства собственных функций.
+	\end{enumerate}
+\end{frame}
+
+\section{Свойства собственных значений}
+\begin{frame}{Свойства собственных значений}
+	Покажем, что $\lambda$ может принимать значения строго больше нуля. Домножим исходное урав\-не\-ние на $X$ и возьмем интеграл от обеих частей на промежутке от $0$ до $\pi$:
+	\begin{equation*} \label{integral}
+	\int\limits_0^\pi(X ^{''})^2 dx + a\int\limits_0^\pi (X^{'})^2 dx = \lambda \int\limits_0^\pi X^2 dx.
+	\end{equation*}
+	Оценивая все три интеграла получаем, что $\lambda \ge 0$.
+	Если предположить, что $\lambda = 0$, то получим
+	\[
+	\int\limits_0^\pi(X ^{''})^2 dx + a\int\limits_0^\pi (X^{'})^2 dx  =0.
+	\]
+	
+	Используя граничные условия, доказываем, что уравнению удов\-лет\-воряют только решения $X\equiv 0$.
+	Значит, $\lambda >0$.
+\end{frame}
+
+\section{Вывод трансцедентного уравнения}
+\begin{frame}{Вывод трансцедентного уравнения} 
+	Составим характеристическое уравнение:
+	\[
+	k^4 - ak^2 - \lambda =0.
+	\]
+	Решая его, получаем выражения для $k^2$.
+
+	Для упрощения дальнейших вычислений зафиксируем следующие обозначения: 
+	\begin{gather*}
+	b=\sqrt{\frac{\sqrt{a^2+4\lambda}-a}{2}}, \quad
+	c=\sqrt{\frac{\sqrt{a^2+4\lambda}+a}{2}}. \label{bc}
+	\end{gather*} 
+	\[
+	\text{ФСР: }\{\sh (cx),\, \ch (-cx),\, \sin (bx),\, \cos(bx)\}.
+	\]
+	\[
+	X_{o.o.}=C_1 \sh(cx) + C_2\ch (-cx) + C_3\sin(bx) + C_4\cos(bx).
+	\]
+\end{frame}
+
+\begin{frame}{Вывод трансцедентного уравнения}
+	Используя граничные условия и выражая $c$ через $b$, получаем следующее трансцедентное уравнение:
+	\begin{equation*}
+	\cos(b\pi)=\frac{1}{\ch(\pi\sqrt{b^2+a})} + \frac{a\sin(b\pi)\th(\pi\sqrt{b^2+a})}{2b\sqrt{b^2+a}}. \label{cos!}
+	\end{equation*}
+	Решения ${b_n}$ представимы в виде 
+	$b_n=n+\frac12-\theta_n$, $0<\theta_n<\frac12$.
+	\begin{figure}[h]
+		\begin{center}
+			\includegraphics[scale=0.65]{picture4}
+			\label{fig1}
+		\end{center}
+	\end{figure}
+\end{frame}
+
+\section{Локализация корней}
+\begin{frame}{Локализация корней}
+	Если нормализовать собственные значения $X(x)$, используя условия \mbox{$\int\limits_0^\pi X^2(x)dx=1$}, то получим:
+	\[
+	\lambda = \int\limits_0^\pi(X^{''})^2dx + a\int_0^\pi(X^{'})^2dx, \quad \lambda>0.
+	\]
+	
+	 Выразим $\lambda$ через $a$ и $b$: 
+	$\lambda = b^4 + ab^2. $
+	Покажем, что найдется $n_0\in \mathbb{N}$, такое, что для любого $n\ge n_0$ на интервале $(n,\,n + \frac12)$ существует единственный корень $b$ трансцедентного уравнения, а на отрезке $[n + \frac12,\, n+1]$ это уравнение не имеет решений.
+	Пусть 
+	\[
+	F(b)=\frac{1}{\ch(c\pi)} + \frac{(c^2-b^2)\sin(b\pi)\th(c\pi)}{2bc} - \cos(b\pi).
+	\]
+	
+\end{frame}
+
+\begin{frame}{Локализация корней}
+	\underline{Интервал $(2n-1,\, 2n-\frac12)$}
+	
+	Для любого $n\in \mathbb{N}$ можно записать неравенства
+	\begin{gather*}
+	F(2n-1)=-1+\frac{1}{\ch(c\pi)}>0,\\
+	F(2n-\frac12) = \frac{1}{\ch(c\pi)} - a\frac{\th(c\pi)}{c} \cdot \frac{1}{2n+\frac12}.
+	\end{gather*}
+	Найдется такое $n_1\in \mathbb{N}$, что для любого $n\ge n_1$ $F(2n - \frac12)<0$. Для $n\ge n_1$ на этом интервале существует корень трансцедентного уравнения.
+	\underline{Интервал $(2n,\,2n + \frac12)$}
+	\begin{gather*}
+	F(2n)=-1+\frac{1}{\ch(c\pi)}<0,\\
+	F(2n+\frac12) = \frac{1}{\ch(c\pi)} + a\frac{\th(c\pi)}{c} \cdot \frac{1}{2n+\frac12}>0.
+	\end{gather*}
+	На этом интервале существует корень трансцедентного уравнения. 
+\end{frame}
+
+\begin{frame}{Локализация корней}
+	
+	\underline{Отрезок $[2n-\frac12,\,2n]$}
+	
+	\[
+		\exists n_2\colon\forall n\ge n_2 \quad \ch(c\pi)\ge 2,\; \frac{c}{\ch(c\pi)}\le \frac{a}{4b},\; \th(c\pi)\ge\frac34.
+	\]
+	
+	Тогда для $n\ge n_2$ и для любого $b\in [2n-\frac12,2n-\frac14]$ имеем:
+	\[
+	F(b)<\frac{1}{\ch(c\pi)} + a\th(c\pi)\sin(b\pi)\cdot\frac{1}{bc}\le -\frac{2\sqrt{2}}{8}\cdot a\cdot\frac{1}{bc} + \frac{a}{4}\cdot\frac{1}{bc} <0
+	\]
+	и для $b\in(2n-\frac14,\,2n]$: $F(b)\le \frac{1}{\ch(c\pi)}-\cos(b\pi)\le -\frac{\sqrt{2}}{2}+\frac12<0$.
+	
+	Для $n\ge n_2$ на отрезке $[2n-\frac12,\,2n]$ трансцедентное уравнение не имеет корней.
+	
+	\underline{Отрезок $[2n+\frac12,\,2n+1]$}
+	\[
+	\forall\; b\in [2n+\frac12,\,2n+1] \quad \sin(b\pi)\ge 0,\; \cos(b\pi)\le 0 \quad \Rightarrow \quad F(b)>0.
+	\]
+	На этом отрезке трансцедентное уравнение не имеет корней.
+	
+\end{frame}
+
+
+
+\section{Оценка $\theta_n$ и выражение для собственных значений}
+\begin{frame}{Оценка $\theta_n$ и выражение для собственных значений}
+	Можно показать существование положительных чисел $b_0$, $b_1$, таких, что
+	\begin{equation*}
+	0<b_0\frac{1}{n^2}<\theta_n<b_1\frac{1}{n^2} \quad \forall n\ge n_0. \label{unequal2}
+	\end{equation*}
+	Для $n\ge n_0$ соответствующие $b_n$ собственные значения исходной задачи представляются так:
+	\[
+	\lambda_n = (n+\frac12 - \theta_n)^4 + a(n+\frac12 - \theta_n)^2
+	\]
+	где $\theta_n\in (0,\,\frac12)$ и выполняется условие, записанное выше.
+	
+	Также можно доказать, что любые два решения $X_n$ и $X_m$ ортогональны в про\-стран\-стве $L_2 [0;\,\pi]$.
+\end{frame}
+
+\section{Выводы}
+\begin{frame}{Выводы}
+	\begin{itemize}
+	\item Было получено трансцендентное уравнение для собственных значений задачи Штурма "--- Лиувилля для уравнения 4-го порядка с граничными условиями, соответствующими жесткому закреплению концов;\\
+	\item исследованы свойства собственных значений;\\
+	\item исследованы свойства собственных функций; \\
+	\item решена задача локализации собственных значений $\{\lambda_n\}$.
+	\end{itemize}
+\end{frame}
+
+\section{Список использованных источников}
+\begin{frame}{Список использованных источников}
+	\begin{thebibliography}{9}
+		\scriptsize
+		\bibitem{Petr} Петровский~И.\,Г. Лекции по теории обыкновенных дифференциальных уравнений.	М.:~Изд–во Московского Университа, 1984, 294~с.
+		\bibitem{Els} Эльсгольц~Л.\,Э. Дифференцииальные уравнения и вариационное исчисление. М.:~Книга по Требованию, 2012, 424~с.
+		\bibitem{Kol} Коллатц~Л. Задачи на собственные значения. М.: Мир, 1968, 504~с.
+		\bibitem{Rudakov2015} Рудаков~И.\,А. Периодические решения квазилинейного уравнения вынужденных колебаний балки. Известия РАН. Серия математическая. --- Т.~79, № 5 --- 2015 --- Doi:~10.4213/im8250. --- 
+		С.~215--238.
+		\bibitem{Rudakov2019} Рудаков~И.\,А. Задача о колебаниях двутавровой балки с закрепленным и шарнирно опертым концами. Вестник МГТУ им.~Н.\,Э.~Баумана. Сер.~Естест\-вен\-ные науки. 2019 № 3 С.~4-21. DOI:~10.18698/1812-3368-2019-3-4-21
+		\bibitem{Rudakov2019_Euler} Рудаков~И.\,А. Периодические решения квазилинейного уравнения Эйлера---Бернулли. Дифференциальные уравнения. 2019 Т.~55 № 11 С.~1581--1583.
+		\bibitem{Rudakov2020_1} Рудаков~И.\,А. Уравнение колебаний балки с закрепленным и шарнирно	опертым концами. Вестник МГУ. Серия 1 Математика. Механика. 2020 № 2	С.~3--8.
+		\bibitem{Rudakov2020_2} Рудаков~И.\,А. Задача о периодических колебаниях двутавровой балки с	закрепленным концом в случае резонанса// Дифференциальные уравнения.	2020 Т.~56 № 3 C.~343--352. DOI:~10.1134/S0374064120030061.
+		\bibitem{Naimark} Наймарк~М.\,А. Линейные дифференциальные операторы. М.:~Физматлит, 2010. 526 с.
+	\end{thebibliography}
+\end{frame}
+
+
+\end{document} 
+
+
+
+\begin{frame}{Локализация корней}
+	Для достаточно большого числа $n\in \mathbb{N}$ на интервале $(n,\,n+\frac12)$ существует единственный корень $b$ трансцедентного уравнения. Пусть $n_3=\max(n_1,\,n_2)$. Если \mbox{$n\ge n_3$}, $n\in \mathbb{N}$, то корень $b\in (n,\,n+\frac12)$ представляется в виде $b=n+\frac12 - \theta$, где $\theta\in (0,\,\frac12)$.
+	
+	Запишем уравнение так:
+	\begin{equation*}
+	\sin(\theta\pi)=\frac{(-1)^n}{\ch(c\pi)} + a\cos(\theta\pi)\th(c\pi)\frac{1}{bc}. \label{sin}
+	\end{equation*}
+	\begin{equation*}
+	\lim\limits_{n\to\infty} \theta = 0 \quad \Rightarrow \quad b_n=n+\frac12-\theta_n, \quad n=n_0,\,n_0+1,\dots,\, \text{где } \theta_n\in \left(0,\,\frac12\right).
+	\end{equation*}	
+	Существует такое число $c>0$, что
+	\[
+	F'(b)=\pi\sin(b\pi) + h(b), \quad |h(b)|\le c\frac{1}{b^2}
+	\]
+	для всех $b\ge 1$.
+\end{frame}

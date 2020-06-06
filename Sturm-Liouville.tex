@@ -1,0 +1,537 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[russian]{babel}
+\usepackage[oglav,spisok,boldsect,eqwhole,figwhole,hyperref,hyperprint]{./style/fn2kursstyle}
+
+\graphicspath{{./style/}{./pictures_kurs/}}
+
+% Параметры титульного листа
+\title{Задача Штурма --- Лиувилля на собственные значения для уравнения прогиба балки \\ с закрепленными концами}
+\author{С.\,Э.~Марцинович}
+\supervisor{И.\,А.~Рудаков}
+\group{ФН2-41Б}
+\date{2020}
+
+\newcommand\Rg{\mathop{\mathrm{Rg}}}
+
+\begin{document}
+	
+\maketitle
+
+\tableofcontents
+
+\newpage
+\section-{Техническое задание}
+Задача Штурма "--- Лиувилля 4-го порядка поставлена таким образом:
+\begin{gather}
+X^{(4)} - aX^{''} = \lambda X, \quad 0<X<\pi,\quad a>0;\label{I} \\ 
+X(0) = X^{'}(0) = 0;\label{II} \\
+X(\pi) = X^{'}(\pi) = 0. \label{III}
+\end{gather}
+
+В данной работе требуется: 
+\begin{enumerate}
+	\item Составить уравнение для собственных значений $\lambda$, исследовать его, найти асимп\-тотику $\{\lambda_n\}$. 
+	\item Локализовать собственные значения $\{\lambda_n\}$. 
+	\item Исследовать свойства собственных функций.
+\end{enumerate}
+
+\newpage
+
+\section-{Введение}
+\emph{Задача Штурма\footnote{Шарль Франсуа Штурм (\textit{фр.} Charles-François Sturm, 1803--1855) — французский математик.} "--- Лиувилля\footnote{Жозеф Лиувилль (\textit{фр.} Joseph Liouville, 1809--1882) — французский математик. }} состоит в отыскании нетривиальных решений урав\-нения $LX = \lambda X$ на некотором промежутке $(a,\, b)$, где $L$ --- дифференциальный опе\-ратор, удовлетворяющих однородным краевым (граничным) условиям и зна\-че\-ни\-ям параметра $\lambda$, при кото\-рых такие решения существуют. Искомые нетривиальные ре\-ше\-ния называются собственными функциями задачи, а значения $\lambda$, при которых такое решение существует, --- ее собственными значениями. 
+
+В статье~\cite{Rudakov2019} рассматривается задача о периодических по времени решениях ква\-зи\-ли\-нейного уравнения колебаний балки с закрепленным и шарнирно опертым концами. Математическая модель колебаний проводов, стержней, способных сопротивляться изгибу, а также двутавровых балок представляет из себя дифференциальное урав\-нение 4-го порядка с граничными условиями~\cite{Rudakov2019}. В данной работе, в отличие от~\cite{Rudakov2019}, рассмотрен случай жесткого закрепления балки на обоих концах, что значительно усложняет вычисления. При изучении этого уравнения соб\-ствен\-ные значения соот\-вет\-ству\-ющей \emph{задачи Штурма "--- Лиувилля} явно не вы\-ра\-жа\-ются и удовлетворяют гро\-мозд\-кому трансцедентному уравнению, исследованию ко\-торого и посвящена дан\-ная работа.
+
+
+
+\section{Постановка задачи} 
+Имеем задачу Штурма "--- Лиувилля 4-го порядка, поставленную таким образом:
+\begin{gather}
+X^{(4)} - aX^{''} = \lambda X, \quad 0<X<\pi,\quad a>0;\label{I} \\ 
+X(0) = X^{'}(0) = 0;\label{II} \\
+X(\pi) = X^{'}(\pi) = 0. \label{III}
+\end{gather}
+
+\underline{Цели} настоящей работы сформулируем следующим образом: 
+\begin{enumerate}
+	\item Составить уравнение для собственных значений $\lambda$, исследовать его, найти асимп\-тотику $\{\lambda_n\}$. 
+	\item Локализовать собственные значения $\{\lambda_n\}$. 
+	\item Исследовать свойства собственных функций.
+\end{enumerate}
+
+\newpage 
+
+\section{Свойства собственных значений}
+Покажем, что $\lambda$ может принимать значения строго больше нуля. Домножим урав\-не\-ние~\eqref{I} на $X$:
+\[
+X X^{(4)} -a X X^{''} = \lambda X^2.
+\]
+Возьмем интеграл от обеих частей на промежутке от $0$ до $\pi$:
+\begin{equation} \label{integral}
+\int\limits_0^\pi X X ^{(4)} dx - a\int\limits_0^\pi X X^{''} dx = \lambda \int\limits_0^\pi X^2 dx.
+\end{equation}
+Правая часть тождества \eqref{integral} больше или равна нулю. Оценим левую часть. Рассмотрим первое слагаемое:
+\begin{multline} \label{int1}
+\int\limits_0^\pi X X ^{(4)} dx = \left. XX^{'''} \right |_0^\pi - \int\limits_0^\pi X^{'}X^{'''} dx = \left. XX^{'''} \right |_0^\pi - \left. X^{'}X^{''} \right |_0^\pi + \int\limits_0^\pi X^{''}X^{''}dx = \\ = \int\limits_0^\pi (X^{''})^2 dx \ge 0.
+\end{multline}
+Рассмотрим второе слагаемое:
+\begin{equation} \label{int2}
+\int\limits_0^\pi XX^{''} dx = \left. XX^{'} \right |_0^\pi - \int\limits_0^\pi X^{'}X^{'} dx = - \int\limits_0^\pi (X^{'})^2 dx \le 0.
+\end{equation}
+В итоге получаем, что левая часть тождества \eqref{integral} больше или равна нулю. Это значит, что $\lambda \ge 0$.
+
+Покажем, что $\lambda\ne 0$. Если $\lambda = 0$, то получаем
+\[
+\int\limits_0^\pi XX^{(4)} dx - a\int\limits_0^\pi XX^{''} dx =0.
+\]
+Учитывая \eqref{int1}, \eqref{int2}, получаем:
+\[
+\int\limits_0^\pi (X^{''})^2 dx + a\int\limits_0^\pi (X^{'})^2 dx =0.
+\]
+Докажем, что хотя бы одно из слагаемых строго больше нуля. Рассмотрим второе слагаемое.Предположим, что интеграл $\int\limits_0^\pi (X^{'})^2 dx$ равен нулю:
+\[
+\int\limits_0^\pi (X^{'})^2 dx = 0 \quad \Rightarrow \quad X^{'}=0 \quad \Rightarrow \quad X=const.
+\]
+Используя начальные условия, получаем:
+\[
+X(0)=X^{'}(0)=0 \quad \Rightarrow \quad X \equiv 0.
+\]
+Это тривиальное решение, а нас интересуют только нетривиальные решения. Сле\-до\-ва\-тель\-но, интеграл $\int\limits_0^\pi (X^{'})^2 dx$ строго больше нуля.
+При этом $a>0$ по условию. Таким образом получаем, что
+\[
+\int\limits_0^\pi (X^{''})^2 dx + a\int\limits_0^\pi (X^{'})^2 dx > 0,
+\]
+а значит $\lambda$ не может быть равна нулю.
+
+Таким образом, было доказано, что  $\lambda >0$.
+\section{Вывод трансцедентного уравнения}
+Уравнение \eqref{I} является линейным однородным дифференциальным уравнением 4-го порядка с постоянными коэффициентами. 
+Составим для него характеристическое уравнение:
+\[
+k^4 - ak^2 - \lambda =0.
+\]
+Решая его, получаем 
+\[
+\left[
+\begin{gathered}
+k^2 = \frac{a+\sqrt{a^2+4\lambda}}{2}, \\
+k^2 = \frac{a-\sqrt{a^2+4\lambda}}{2}.
+\end{gathered}
+\right.
+\]
+Для упрощения вычислений введем обозначения. Пусть
+$\sfrac{a-\sqrt{a^2+4\lambda}}{2}=-b^2$,
+тогда
+$b= \pm \sqrt{\sfrac{\sqrt{a^2+4\lambda}-a}{2}}$. Зафиксируем переменную $b$ таким образом:
+\begin{equation}
+b=\sqrt{\frac{\sqrt{a^2+4\lambda}-a}{2}}. \label{b}
+\end{equation}
+Пусть
+$\sfrac{a+\sqrt{a^2+4\lambda}}{2}=c^2$, 
+тогда
+$c= \pm \sqrt{\sfrac{\sqrt{a^2+4\lambda}+a}{2}}$. Зафиксируем переменную $c$ так:
+\begin{equation}
+c=\sqrt{\frac{\sqrt{a^2+4\lambda}+a}{2}}.\label{c}
+\end{equation}
+
+С учетом введенных обозначений фундаментальную систему решений можно записать следующим образом: $\{\sh (cx),\, \ch (-cx),\, \sin (bx),\, \cos(bx)\}$.
+
+Общее решение однородного уравнения \eqref{I} можно представить в виде:
+\[
+X_{o.o.}=C_1 \sh(cx) + C_2\ch (-cx) + C_3\sin(bx) + C_4\cos(bx).
+\]
+Используем условие \eqref{II}:
+\[
+\begin{cases}
+	X(0)=0, \\
+	X^{'}(0)=0
+\end{cases} \Rightarrow \quad
+\begin{cases}
+C_1 \sh(0) + C_2\ch (0) + C_3\sin(0) + C_4\cos(0) =0, \\
+C_1c\ch(0) + C_2(-c)\sh (0) + C_3 b\cos(0) - C_4 b \sin(0)=0.
+\end{cases}
+\]
+Выразим константы $C_1$, $C_2$ через константы $C_3$ и $C_4$:
+\begin{equation}
+\begin{cases}
+C_2 + C_4 =0, \\
+C_1 c + C_3 b =0
+\end{cases}  \Rightarrow \quad
+\begin{cases}
+C_2 =- C_4, \\
+C_1 =-\sfrac{C_3 b}{c}.
+\end{cases} \label{const}
+\end{equation}
+Теперь используем условие \eqref{III}:
+\[
+\begin{cases}
+X(\pi)=0, \\
+X^{'}(\pi)=0
+\end{cases} \Rightarrow \quad
+\begin{cases}
+C_1 \sh(c\pi) + C_2\ch (-c\pi) + C_3\sin(b\pi) + C_4\cos(b\pi) =0, \\
+C_1c\ch(c\pi) + C_2(-c)\sh (-c\pi) + C_3 b\cos(b\pi) - C_4 b \sin(b\pi)=0.
+\end{cases}
+\]
+Подставим выражения для констант, полученные в \eqref{const}:
+\begin{gather*}
+\begin{cases}
+-\sfrac{C_3 b}{c}\cdot \sh(c\pi) - C_4\ch (-c\pi) + C_3\sin(b\pi) + C_4\cos(b\pi) =0, \\
+-\sfrac{C_3 b}{c}\cdot c\ch(c\pi) - C_4(-c)\sh (-c\pi) + C_3 b\cos(b\pi) - C_4 b \sin(b\pi)=0;
+\end{cases} \\
+\begin{cases}
+C_3(-\sfrac{b}{c}\cdot \sh(c\pi) +\sin(b\pi))+C_4(-ch(c\pi)+\cos(b\pi)) =0, \\
+C_3(-b\ch(c\pi)+b\cos(b\pi)) + C_4(c\sh(-c\pi)-b\sin(b\pi))=0.
+\end{cases} 
+\end{gather*}
+Решим эту систему относительно $C_3$ и $C_4$. Система имеет единственное решение, когда определитель равен нулю, то есть
+\[
+\Delta = 
+\begin{vmatrix}
+-\frac{b}{c}\cdot \sh(c\pi) +\sin(b\pi) & -ch(c\pi)+\cos(b\pi) \\
+-b\ch(c\pi)+b\cos(b\pi) & c\sh(-c\pi)-b\sin(b\pi)
+\end{vmatrix} =0.
+\]
+Раскрывая определитель, получаем
+\begin{multline} \label{det}
+(-\frac{b}{c}\cdot \sh(c\pi) +\sin(b\pi))(c\sh(-c\pi)-b\sin(b\pi)) - (-ch(c\pi)+\cos(b\pi))(-b\ch(c\pi)+b\cos(b\pi)) = \\
+= -\frac{b}{c}\cdot c \sh(c\pi)\sh(-c\pi) + c\sin(b\pi)\sh(-c\pi)+\frac{b}{c}\cdot b\sin(b\pi)sh(c\pi) - b\sin^2 (b\pi) - {}\\ 
+{} - b \ch(-c\pi)\ch(c\pi) +b\cos(b\pi)\ch(c\pi) + b\cos(b\pi)\ch(-c\pi) - b\cos^2(b\pi) = \\ 
+=b\sh^2(c\pi) - c\sin(b\pi)\sh(c\pi) + \frac{b^2}{c}\sin(b\pi)\sh(c\pi) - b\sin^2(b\pi) - b\ch^2(c\pi) + {} \\{} + b\cos(b\pi)\ch(c\pi)+  b\cos(b\pi)\ch(c\pi) - b\cos^2(b\pi) = \\ =
+-2b + 2b\cos(b\pi)\ch(c\pi) - c\sin(b\pi)\sh(c\pi)+\frac{b^2}{c}\sin(b\pi)\sh(c\pi) = 0.
+\end{multline}
+Домножим результат, полученный в \eqref{det} на $c$ и упростим это выражение:
+\begin{gather*}
+-2bc + 2bc\cos(b\pi)\ch(c\pi) + (b^2-c^2)\sin(b\pi)sh(c\pi) = 0;\\
+2bc\cos(b\pi)ch(c\pi) = 2bc - (b^2-c^2)\sin(b\pi)\sh(c\pi).
+%\cos(b\pi)=\frac{1}{2bc\ch(c\pi)}(2bc - (b^2-c^2)\sin(b\pi)\sh(c\pi));\\
+%\cos(b\pi)=\frac{1}{\ch(c\pi)} - \frac{(b^2-c^2)\sin(b\pi)\th(c\pi)}{2bc}.
+\end{gather*}
+Если выразить $\cos(b\pi)$, то получим следующее уравнение
+\begin{equation}
+\cos(b\pi)=\frac{1}{\ch(c\pi)} + \frac{(c^2-b^2)\sin(b\pi)\th(c\pi)}{2bc}. \label{cos}
+\end{equation}
+Выразим $c$ через $b$. Напомним, что
+\[
+b^2 = \frac{\sqrt{a^2+4\lambda}-a}{2}, \quad
+c^2 = \frac{\sqrt{a^2+4\lambda}+a}{2}.
+\]
+Тогда
+\begin{gather}
+c^2 = \frac{\sqrt{a^2+4\lambda}}{2} + \frac{a}{2} = \frac{\sqrt{a^2+4\lambda}}{2} - \frac{a}{2} +a = b^2 +a \quad \Rightarrow \quad c=\sqrt{b^2+a}; \label{c}\\ 
+c^2 - b^2 = b^2 +a -b^2 = a. \label{c^2-b^2}
+\end{gather}
+ Подставляя полученныe в \eqref{c} и \eqref{c^2-b^2} результаты в уравнение \eqref{cos}, получаем трансце\-дент\-ное уравнение, зависящее от $b$:
+ \begin{equation}
+ \cos(b\pi)=\frac{1}{\ch(\sqrt{b^2+a}\pi)} + \frac{a\sin(b\pi)\th(\sqrt{b^2+a}\pi)}{2b\sqrt{b^2+a}}. \label{cos!}
+\end{equation}
+
+Проиллюстрируем равенство \eqref{cos!}. Обозначим правую часть равенства как $f_1(b)$, а левую как $f_2(b)$. На рис. \ref{fig1} изображен график зависимости двух частей равенства~\eqref{cos!} от параметра $b$. Точки пересечения двух кривых являются решениями этого уравне\-ния. Можно заметить, что решения ${b_n}$ представимы в виде 
+$b_n=n+\frac12+\theta_n$, $0<|\theta_n|<\frac12$.
+
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[scale=0.7]{picture3}
+		\caption{Иллюстрация решений уравнения \eqref{cos!}}
+		\label{fig1}
+	\end{center}
+\end{figure}
+
+\section{Локализация корней}
+
+\looser{-0.02}{Если нормализовать собственные значения $X(x)$, используя условия \mbox{$\int\limits_0^\pi X^2(x)dx=1$},} то получим:
+\[
+\lambda = \int\limits_0^\pi(X^{''})^2dx + a\int_0^\pi(X^{'})^2dx, \quad \lambda>0.
+\]
+
+Используя выражение \eqref{b}, выразим $\lambda$ через $a$ и $b$:
+\begin{gather*}
+b^2 = \frac{\sqrt{a^2+4\lambda}-a}{2}, \\
+2b^2 + a = \sqrt{a^2+4\lambda}, \\
+4b^4 +4ab^2 + a^2 = a^2 +4\lambda,
+\end{gather*}
+откуда в итоге получаем 
+\begin{equation}
+\lambda = b^4 + ab^2. \label{lambda}
+\end{equation}
+
+Покажем, что найдется $n_0\in \mathbb{N}$, такое, что для любого $n\ge n_0$ на интервале $(n,\,n + \frac12)$ существует единственный корень $b$ уравнения \eqref{cos}, а на отрезке $[n + \frac12,\, n+1]$ это уравнение не имеет решений.
+Пусть 
+\[
+F(b)=\frac{1}{\ch(c\pi)} + \frac{(c^2-b^2)\sin(b\pi)\th(c\pi)}{2bc} - \cos(b\pi).
+\]
+Для любого $n\in \mathbb{N}$ можно записать неравенства
+\begin{gather*}
+F(2n)=-1+\frac{1}{\ch(c\pi)}<0,\\
+F(2n+\frac12) = \frac{1}{\ch(c\pi)} + a\frac{\th(c\pi)}{c} \cdot \frac{1}{2n+\frac12}>0.
+\end{gather*}
+Это значит, что на интервале $(2n,\,2n + \frac12)$ существует корень уравнения \eqref{cos}. Кроме того, имеем следующие соотношения:
+\begin{gather*}
+F(2n-1)=-1+\frac{1}{\ch(c\pi)}>0,\\
+F(2n-\frac12) = \frac{1}{\ch(c\pi)} - a\frac{\th(c\pi)}{c} \cdot \frac{1}{2n+\frac12}.
+\end{gather*}
+Найдется такое $n_1\in \mathbb{N}$, что для любого $n\ge n_1$ $F(2n - \frac12)<0$. Следовательно, для $n\ge n_1$ существует корень уравнения \eqref{cos} на интервале $(2n-1,\, 2n-\frac12)$.
+
+Если $b\in [2n+\frac12,\,2n+1]$, $n\in\mathbb{N}$, то
+\[
+\sin(b\pi)\ge 0, \quad \cos(b\pi)\le 0,\quad F(b)>0.
+\] 
+Следовательно, на отрезке $[2n+\frac12,\,2n+1]$ уравнение \eqref{cos} не имеет корней.
+
+Рассмотрим уравнение \eqref{cos} на отрезке $[2n-\frac12,\,2n]$. Обозначим за $n_2$ такое натураль\-ное число, что для любого $n\ge n_2$ выполняются неравенства
+\begin{equation}  \label{inequal}
+\ch(c\pi)\ge 2,\quad \frac{c}{\ch(c\pi)}\le \frac{a}{4b},\quad \th(c\pi)\ge\frac34.
+\end{equation}
+Тогда для $n\ge n_2$ и для любого $b\in [2n-\frac12,2n-\frac14]$ имеем:
+\[
+F(b)<\frac{1}{\ch(c\pi)} + a\th(c\pi)\sin(b\pi)\cdot\frac{1}{bc}\le -\frac{2\sqrt{2}}{8}\cdot a\cdot\frac{1}{bc} + \frac{a}{4}\cdot\frac{1}{bc} = -\frac{a}{8} \cdot(3\sqrt{2}-2)\cdot\frac{1}{bc}<0
+\]
+и для $b\in(2n-\frac14,\,2n]$ с учетом неравенств \eqref{inequal} получаем:
+\[
+F(b)\le \frac{1}{\ch(c\pi)}-\cos(b\pi)\le -\frac{\sqrt{2}}{2}+\frac12<0.
+\]
+Следовательно, для $n\ge n_2$, $n\in\mathbb{N}$ на отрезке $[2n-\frac12,\,2n]$ уравнение \eqref{cos} не имеет корней.
+
+Покажем, что для достаточно большого числа $n\in \mathbb{N}$ на интервале $(n,\,n+\frac12)$ существует единственный корень $b$ уравнения \eqref{cos}. Пусть $n_3=\max(n_1,\,n_2)$. Если \mbox{$n\ge n_3$}, $n\in \mathbb{N}$, то корень $b\in (n,\,n+\frac12)$ уравнения \eqref{cos} представляется в виде 
+\begin{equation}
+b=n+\frac12 - \theta,
+\end{equation}
+где $\theta\in (0,\,\frac12)$.
+Из \eqref{cos} выражаем:
+\begin{equation}
+\sin(\theta\pi)=\frac{(-1)^n}{\ch(c\pi)} + a\cos(\theta\pi)\th(c\pi)\frac{1}{bc}. \label{sin}
+\end{equation}
+Из этого следует, что
+\begin{equation}
+\lim\limits_{n\to\infty} \theta = 0. \label{lim}
+\end{equation}
+Можно заметить, что существует число $c>0$, такое, что
+\[
+F'(b)=\pi\sin(b\pi) + h(b), \quad |h(b)|\le c\frac{1}{b^2}
+\]
+для всех $b\ge 1$.
+
+Из \eqref{lim} следует
+\begin{equation}
+b_n=n+\frac12-\theta_n, \quad n=n_0,\,n_0+1,\dots \label{smth}
+\end{equation}
+где $\theta_n\in (0,\,\frac12)$.
+
+Тождество \eqref{sin} также показывает существование положительных чисел $b_0$, $b_1$, таких, что
+\begin{equation}
+0<b_0\frac{1}{n^2}<\theta_n<b_1\frac{1}{n^2} \quad \forall n\ge n_0. \label{unequal2}
+\end{equation}
+Для $n\ge n_0$, принимая во внимание \eqref{lambda}, \eqref{smth}, соответствующие $b_n$ собствен\-ные значения исходной задачи \eqref{I}--\eqref{III} представляются так:
+\[
+\lambda_n = (n+\frac12 - \theta_n)^4 + a(n+\frac12 - \theta_n)^2
+\]
+где $\theta_n\in (0,\,\frac12)$ и выполняется \eqref{unequal2}.
+
+
+
+\section{Асимптотика собственных значений}
+
+Как уже было сказано ранее, решения уравнения \eqref{cos} представимы в виде 
+\[
+b_n=n+\frac12+\theta_n, \quad 0<|\theta_n|<\frac12.
+\]
+Докажем, что $\theta_n<0$.
+Домножим уравнение \eqref{cos!} на $\frac{\theta_n}{\cos(b_n\pi)}$, тогда получим
+\begin{equation}
+\theta_n = \frac{\theta_n}{\ch(\sqrt{b_n^2+a}\pi)\cos(b_n\pi)} + \frac{a\sin(b_n\pi)\th(\sqrt{b_n^2+a}\pi)\theta_n}{2b_n\sqrt{b_n^2+a}\cos(b_n\pi)}. \label{theta_n}
+\end{equation}
+Заметим, что
+\begin{multline}
+\cos(b_n\pi) = \cos(\pi(n+\frac12+\theta_n)) = \cos(\frac{\pi}{2}+\pi n + \pi\theta_n) = -\sin(\pi n \pi\theta_n) = \\ = -\cos(\pi n)\sin(\pi\theta_n) = (-1)^{n+1}\sin(\pi\theta_n), \label{cos1}
+\end{multline}
+\begin{multline}
+\sin(b_n\pi) = \sin(\pi(n+\frac12+\theta_n)) = \sin(\frac{\pi}{2}+\pi n + \pi\theta_n) = \cos(\pi n \pi\theta_n) = \\ = \cos(\pi n)\cos(\pi\theta_n) = (-1)^{n}\cos(\pi\theta_n). \label{sin1}
+\end{multline}
+Подставляя результаты, полученные в \eqref{cos1}, \eqref{sin1} в уравнение \eqref{theta_n}, получаем
+\begin{multline}
+\theta_n = \frac{\theta_n}{\ch(\sqrt{b_n^2+a}\pi)(-1)^{n+1}\sin(\pi\theta_n)} + \frac{a(-1)^{n}\cos(\pi\theta_n)\th(\sqrt{b_n^2+a}\pi)\theta_n}{2b_n\sqrt{b_n^2+a} (-1)^{n+1} \sin(\pi\theta_n)} = \\ =
+(-1)^{n+1}\frac{\pi\theta_n}{\sin(\pi\theta_n)}\cdot\frac{1}{\pi\ch(\sqrt{b_n^2+a}\pi)} - \frac{a\th(\sqrt{b_n^2+a}\pi)\cos(\pi\theta_n)}{2\pi b_n\sqrt{b_n^2+a}}\cdot\frac{\pi\theta_n}{\sin(\pi\theta_n)}. \label{lim}
+\end{multline}
+Рассмотрим отдельно оба слагаемых в формуле \eqref{lim}. Посмотрим, к чему стремятся их значения при $n\rightarrow\infty$:
+\[
+\lim\limits_{n\rightarrow\infty}  \frac{\pi\theta_n}{\sin(\pi\theta_n)}\cdot\frac{1}{\pi\ch(\sqrt{b_n^2+a}\pi)} = \lim\limits_{n\rightarrow\infty} \frac{\pi\theta_n}{\sin(\pi\theta_n)}\cdot\frac{1}{\pi\ch(\sqrt{n^2+n+\frac14+a}\pi)} = 1\cdot 0  = 0,
+\]
+то есть первое слагаемое стремится к нулю со скоростью экспоненты.
+\begin{multline*}
+\lim\limits_{n\rightarrow\infty} \frac{a\th(\sqrt{b_n^2+a}\pi)\cos(\pi\theta_n)}{2\pi b_n\sqrt{b_n^2+a}}\cdot\frac{\pi\theta_n}{\sin(\pi\theta_n)} = \\ = \lim\limits_{n\rightarrow\infty} \frac{a\th(\sqrt{n^2+n+\frac14+a}\pi)\cos(\pi\theta_n)}{2\pi (n+\frac12)\sqrt{n^2+n+\frac14+a}}\cdot\frac{\pi\theta_n}{\sin(\pi\theta_n)} = \lim\limits_{n\rightarrow\infty} \frac{a\th(n\pi)}{2\pi n^2} = 0,
+\end{multline*}
+это значит, что второе слагаемое также стремится к нулю, со скоростью степенной функции. Следовательно, $\theta_n$ стремится к нулю и принимает отрицательные значения.
+
+\section{Оценка $\theta_n$}
+
+Докажем, что существуют константы $C_0,\,C_1>0$, такие, что выполняется неравен\-ство $0<C_0\sfrac{1}{n^2}<\theta_n<C_1\sfrac{1}{n^2}$.
+Очевидно, что $\th(\theta_n)<1$. Определим функцию $f(t)$ следующим образом:
+\[
+f(t)=
+\begin{cases}
+\sfrac{t}{\sin t}, \quad t\in [-\sfrac{\pi}{2};\,0)\cup (0;\,\sfrac{\pi}{2}], \\
+1, \quad t=0.
+\end{cases}
+\]
+Найдем производную этой функции:
+\[
+f^{'}(t)=\frac{\sin t -t\cos t}{\sin^2 t} = \frac{\cos t(\tg t - t)}{\sin^2 t}.
+\]
+Покажем, что функция $\tg t - t>0$ при $t\in (0;\,\frac{\pi}{2}]$. Для этого возьмем производную:
+\[
+(\tg t - t)^{'} = \frac{1}{\cos^2 t}-1>0, \quad t\in(0;\,\frac{\pi}{2}].
+\]
+Функция $\tg t - t$ возрастает и положительна на промежутке $(0;\,\frac{\pi}{2}]$, а в нуле принимает значение 0.
+Это значит, что $f^{'}(t)>0$ при $t\in (0;\,\frac{\pi}{2}]$.
+Следовательно, для всех $t\in (0;\,\frac{\pi}{2}]$ можно записать неравенство
+\[
+1\le f(t) \le \frac{\pi}{2}.
+\]
+Для $|\theta_n|$ имеем следующее неравенство:
+\begin{equation}
+|\theta_n|\le\frac{\pi}{2}\cdot\frac{1}{\ch(\pi c_n)} + \frac{\pi}{2}\cdot\frac{a}{\pi b_n c_n} = \frac{\pi}{2}\left(\frac{1}{\ch(\pi c_n)} + \frac{a}{\pi b_n c_n}\right). \label{abs}
+\end{equation}
+Оценим $b_n c_n$:
+\begin{multline*}
+b_n c_n = \sqrt{\frac{\sqrt{a^2+4\lambda_n}-a}{2}}\cdot \sqrt{\frac{\sqrt{a^2+4\lambda_n}+a}{2}} = \sqrt{\frac{a^2+4\lambda_n-a^2}{4}} = \sqrt{\lambda_n} = \\ = \sqrt{(n+\frac12 - \theta_n)^4 + a(n+\frac12-\theta_n)^2} \ge (n+\frac12 - \theta_n)^2 \ge n^2.
+\end{multline*}
+Тогда можем записать следующее:
+\begin{equation}
+\dfrac{1}{b_n c_n} \le \dfrac{1}{n^2}. \label{o1}
+\end{equation}
+Подставляя \eqref{o1} в \eqref{abs}, получаем такое выражение:
+\[
+|\theta_n|=\frac{\pi}{2}\left(\frac{1}{\ch(\pi c_n)}+\frac{a}{\pi n^2}\right).
+\]
+Теперь оценим $\dfrac{1}{\ch(\pi c_n)}$:
+\begin{equation}
+\frac{1}{\ch(\pi c_n)} = \frac{2}{e^{\pi c_n}+e^{-\pi c_n}} < \frac{2}{e^{\pi c_n}}. \label{o2}
+\end{equation}
+Докажем, что $\sfrac{1}{e^x}<\sfrac{2}{x^2}$. Рассмотрим функцию $e^x - \sfrac{x^2}{2}$. Возьмем первую и вторую производные:
+\begin{gather*}
+\left(e^x-\frac{x^2}{2}\right)^{'} = e^x - x; \\
+\left(e^x - \frac{x^2}{2}\right)^{''}=e^x-1.
+\end{gather*}
+Вторая производная больше нуля для любого $x>0$. Это значит, что первая произ\-вод\-ная возрастает везде на промежутке $(0;\,\infty)$. При этом заметим, что 
+\[
+\left.\left( e^x - \frac{x^2}{2}\right) \right|_0 = 1,
+\]
+следовательно, функция $e^x - \sfrac{x^2}{2}>0$ везде на $(0;\,\infty)$. На основании этого можем записать неравенство
+\[
+\frac{1}{e^x}<\frac{2}{x^2}.
+\]
+Тогда получаем следующую оценку:
+\[
+|\theta_n|\le \frac{\pi}{2}\left(\frac{1}{\ch(\pi c_n)} + \frac{a}{\pi n^2}\right) < \frac{\pi}{2}\left(\frac{2}{e^{\pi c_n}} + \frac{a}{\pi n^2}\right) <
+\frac{\pi}{2}\left(\frac{2\cdot 2}{\pi^2 c_n^2} + \frac{a}{\pi n^2}\right) = \frac{2}{\pi c_n^2} + \frac{a}{\pi n^2}.
+\]
+Теперь оценим $c_n$:
+\begin{multline*}
+c_n = \sqrt{\frac{\sqrt{a^2+4\lambda_n}+a}{2}} = \sqrt{\frac{\sqrt{a^2+4 b_n^4+4a b_n^2}+a}{2}} = \sqrt{\frac{a+2b_n^2+a}{2}} = \sqrt{a+b_n^2} > \\ > \sqrt{b_n^2} = b_n = n + \frac12 - \theta_n > n,
+\end{multline*}
+следовательно, $\sfrac{1}{c_n}<\sfrac{1}{n}$.
+Получаем финальную оценку сверху:
+\begin{equation}
+|\theta_n|< \frac{2}{\pi c_n^2} + \frac{a}{2 n^2} < \frac{2}{\pi n^2} + \frac{a}{2n^2} = \frac{1}{n^2}(\frac{2}{\pi} + \frac{a}{2}) = \frac{1}{n^2}\cdot\frac{4+a\pi}{2\pi}. \label{up}
+\end{equation}
+
+Теперь оценим $|\theta_n|$ снизу. Можем записать следующее неравенство:
+\[
+\frac{\pi \theta_n}{\sin(\pi\theta_n)}\ge 1.
+\]
+Заметим, что $\cos(\pi \theta_n)\rightarrow1$ при $n\rightarrow\infty$, а значит можем оценить снизу константой:
+\[
+\cos(\pi\theta_n)\ge d, \quad d=const, \quad d>0.
+\]
+Аналогично: $\th(\pi \theta_n)\rightarrow1$ при $n\rightarrow\infty$, тогда
+\[
+\th(\pi\theta_n)\ge g, \quad g=const, \quad g>0.
+\]
+Для $|\theta_n|$ получаем такую оценку:
+\[
+|\theta_n|\ge \frac{a\cdot g\cdot d}{\pi b_n c_n} - \frac{1}{\ch(\pi c_n)}
+\]
+Оценим $b_n c_n$ снизу:
+\begin{multline*}
+b_n c_n = \sqrt{\frac{\sqrt{a^2+4\lambda_n}-a}{2}}\cdot \sqrt{\frac{\sqrt{a^2+4\lambda_n}+a}{2}} = \sqrt{\frac{a^2+4\lambda_n - a^2}{4}} = \sqrt{\lambda_n} = \\ = \sqrt{(n+\frac12 - \theta_n)^4 + a(n+\frac12 - \theta_n)^2} \le \sqrt{(a+1)(n+\frac12 - \theta_n)^4} = \\ = \sqrt{a+1}(n+\frac12 - \theta_n)^2 \le \sqrt{a+1}(2n)^2,
+\end{multline*}
+следовательно, $\dfrac{1}{b_n c_n} \ge \dfrac{1}{4n^2\sqrt{a+1}}$.
+Тогда имеем:
+\[
+|\theta_n| \ge \frac{a\cdot g\cdot d}{\pi b_n c_n}-\frac{1}{\ch(\pi c_n)} \ge \frac{a\cdot g\cdot d}{4\pi n^2\sqrt{a+1}}-\frac{1}{\ch(\pi c_n)}.
+\]
+Теперь оценим $\ch(\pi c_n)$:
+\[
+\frac{1}{\ch(\pi c_n)} = \frac{2}{e^{\pi c_n}+e^{-\pi c_n}} \ge \frac{2}{e^{\pi c_n}+e^{\pi c_n}} = \frac{1}{e^{\pi c_n}}.
+\]
+Обозначим $A=\sfrac{a\cdot g\cdot d}{4\pi\sqrt{a+1}}$. Покажем, что существует такое $n_0\in \mathbb{N}$, что для лю\-бо\-го $n>n_0$ выполняется неравенство $e^{\pi c_n} > \sfrac{a}{A} n^2$.
+\[
+c_n \ge n \quad \Rightarrow \quad e^{\pi c_n} > e^{\pi n}.
+\]
+Кроме того, можем записать неравенства
+\[
+e^{\pi n}>\frac{2}{A} n^2, \quad e^{\pi n_0}>\frac{2}{A} n_0^2.
+\]
+Найдем такое $n_0$, что последнее неравенство выполняется для любого $n>n_0$. Пусть $n_0 = \left[\sqrt{\sfrac{A}{2}}\right]$, тогда $e^{\pi n_0}>1$. Это выполняется для любой константы $A$.
+Можем записать оценку снизу:
+\begin{equation}
+|\theta_n| \ge \frac{a\cdot g\cdot d}{\pi b_n c_n}. \label{down}
+\end{equation}
+
+Таким образом из \eqref{up}, \eqref{down} получаем финальную оценку:
+\[
+\exists \, n_0\in\mathbb{N}, \quad \, C_1,\,C_2\in\mathbb{R}\colon \quad \forall\, n>n_0 \quad \frac{C_1}{n^2}\ge |\theta_n| \ge \frac{C_2}{n^2}.
+\]
+
+\section{Ортогональность решений}
+Пусть $X_n$ и $X_m$ - любые два решения.
+Докажем, что они ортогональны в про\-стран\-стве $L_2 [0;\,\pi]$. Покажем, что $\int\limits_0^\pi X_n(x) X_m(x) dx = 0$.
+
+Из исходного уравнения \eqref{I} получаем:
+\[
+X_n^{(4)} - a X_n^{''} - \lambda_n X_n = 0 \quad \Rightarrow \quad \lambda_n X_n = X_n^{(4)} - a X_n^{''}.
+\]
+
+Рассмотрим интеграл
+\begin{equation} \label{99}
+\lambda_n \int\limits_0^\pi X_n X_m dx = \int\limits_0^\pi (X_n^{(4)} - aX_n^{''}) X_m dx = \int\limits_0^\pi X_n^{(4)} X_m dx - a\int\limits_0^\pi X_n^{''} X_m dx.
+\end{equation}
+Рассмотрим отдельно оба слагаемых выражения, полученного в \eqref{99}:
+\begin{multline*}
+\int\limits_0^\pi X_n^{(4)} X_m dx = \left. X_n^{'''} X_m \right|_0^\pi - \int\limits_0^\pi X_n^{'''} X_m^{'} dx = -(\left. X_n^{''} X_m^{'} \right|_0^\pi - \int\limits_0^\pi X_n^{''} X_m^{''} dx ) = \\ = \left. X_n^{'} X_m^{''} \right|_0^\pi - \int\limits_0^\pi X_n^{'} X_m^{'''} dx = - (\left. X_n X_m^{'''} \right|_0^\pi - \int\limits_0^\pi X_n X_m^{(4)} dx ) = \int\limits_0^\pi X_m^{(4)} X_n dx;
+\end{multline*}
+\begin{multline*}
+\int\limits_0^\pi X_n^{''} X_m dx = \left. X_n^{'} X_m \right|_0^\pi - \int\limits_0^\pi X_n^{'} X_m^{'} dx = -(\left. X_n X_m^{'} \right|_0^\pi - \int\limits_0^\pi X_n X_m^{''} dx ) = \int\limits_0^\pi X_m^{''} X_n dx. 
+\end{multline*}
+Таким образом, получаем
+\[
+\lambda_n \int\limits_0^\pi X_n X_m dx =\lambda_m \int\limits_0^\pi X_m X_n dx.
+\]
+Преобразуем это выражение, вынося общий множитель:
+\[
+(\lambda_n - \lambda_m) \int\limits_0^\pi X_n X_m dx =0.
+\]
+Множитель $(\lambda_n - \lambda_m)\ne 0$, так как $\lambda_n \ne \lambda_m$. Следовательно, $\int\limits_0^\pi X_n X_m dx =0$, а значит решения $X_n$, $X_m$ ортогональны.
+
+\section-{Заключение}
+В ходе работы было получено трансцендентное уравнение~\eqref{cos} для собственных значений задачи Штурма "--- Лиувилля для уравнения 4-го порядка с граничными условиями, соответствующими жесткому закреплению концов. Была исследована асимптотика собственных значений и их свойства, а так же свойства собственных функций. После визуализации и последующего анализа урав\-нения~\eqref{cos} была решена задача локализации собственных значений $\{\lambda_n\}$.
+
+\newpage
+
+\begin{thebibliography}{9}
+	\bibitem{Petr} Петровский~И.\,Г. Лекции по теории обыкновенных дифференциальных уравнений.	М.:~Изд–во Московского Университа, 1984, 294~с.
+	\bibitem{Els} Эльсгольц~Л.\,Э. Дифференцииальные уравнения и вариационное исчисление. М.:~Книга по Требованию, 2012, 424~с.
+	\bibitem{Kol} Коллатц~Л. Задачи на собственные значения. М.: Мир, 1968, 504~с.
+	\bibitem{Rudakov2015} Рудаков~И.\,А. Периодические решения квазилинейного уравнения вынужденных колебаний балки. Известия РАН. Серия математическая. --- Т.~79, № 5 --- 2015 --- Doi:~10.4213/im8250. --- С.~215--238.
+	\bibitem{Rudakov2019} Рудаков~И.\,А. Задача о колебаниях двутавровой балки с закрепленным и шарнирно опертым концами. Вестник МГТУ им.~Н.\,Э.~Баумана. Сер.~Естест\-вен\-ные науки. 2019 № 3 С.~4-21. DOI:~10.18698/1812-3368-2019-3-4-21
+	\bibitem{Rudakov2019_Euler} Рудаков~И.\,А. \looser{-0.028}{Периодические решения квазилинейного уравнения Эйлера---Бернулли.} Дифференциальные уравнения. 2019 Т.~55 № 11 С.~1581--1583.
+	\bibitem{Rudakov2020_1} Рудаков~И.\,А. Уравнение колебаний балки с закрепленным и шарнирно	опертым концами. Вестник МГУ. Серия 1 Математика. Механика. 2020 № 2	С.~3--8.
+	\bibitem{Rudakov2020_2} Рудаков~И.\,А. Задача о периодических колебаниях двутавровой балки с	закрепленным концом в случае резонанса// Дифференциальные уравнения.	2020 Т.~56 № 3 C.~343--352. DOI:~10.1134/S0374064120030061.
+	\bibitem{Naimark} Наймарк~М.\,А. Линейные дифференциальные операторы. М.:~Физматлит, 2010. 526 с.
+\end{thebibliography}
+ 
+
+\end{document}
